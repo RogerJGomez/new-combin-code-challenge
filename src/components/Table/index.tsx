@@ -8,7 +8,7 @@ interface Props {
 const Table: React.FC<Props> = ({ data }: Props): React.ReactElement => {
   return (
     <table className="w-full">
-      <thead>
+      <thead className="sticky top-0 bg-white">
         <tr className="border-2 border-gray">
           {tableHeaders.map((header) => (
             <th

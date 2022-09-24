@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useIdleTimer } from "react-idle-timer";
 import Form from "../../components/Form";
 import Table from "../../components/Table";
@@ -24,7 +24,7 @@ const Home: React.FC = (): React.ReactElement => {
 
   useIdleTimer({ timeout, onIdle: handleOnIdle });
 
-  //USER AUTHENTICATION
+  // USER AUTHENTICATION
   useEffect(() => {
     try {
       authService().then((auth) => setIsAuth(auth));
@@ -34,7 +34,7 @@ const Home: React.FC = (): React.ReactElement => {
     return () => localStorage.removeItem("token");
   }, [setIsAuth]);
 
-  //GET MEMBERS DATA FROM THE API
+  // GET MEMBERS DATA FROM THE API
   useEffect(() => {
     if (isAuth) {
       try {
@@ -45,7 +45,7 @@ const Home: React.FC = (): React.ReactElement => {
     }
   }, [isAuth]);
 
-  //ADD A NEW MEMBER TO THE TABLE
+  // ADD A NEW MEMBER TO THE TABLE
   const addMember = useCallback(
     (newMember: Member) => {
       const repeatedMember = tableData.find(
@@ -79,7 +79,7 @@ const Home: React.FC = (): React.ReactElement => {
   const closeErrorMessage = useCallback(() => setErrorMessage(null), []);
 
   return (
-    <div className="flex h-full w-full justify-center gap-6 items-center px-8 relative">
+    <div className="flex h-5/6 w-full justify-center gap-6 items-center px-8 relative">
       {!isAuth ? (
         <h3>Loading...</h3>
       ) : (
@@ -87,12 +87,12 @@ const Home: React.FC = (): React.ReactElement => {
           <div className="w-4/12">
             <Form onSubmitAction={addMember} />
           </div>
-          <div className="w-8/12">
+          <div className="w-8/12 overflow-y-auto">
             <Table data={tableData} />
           </div>
         </div>
       )}
-      {errorMessage !== null && (
+      {errorMessage && (
         <div className="h-12 rounded-md bg-red-700 text-white flex items-center absolute bottom-20 left-50 px-8">
           <h3>{errorMessage}</h3>
           <div className="ml-5 cursor-pointer" onClick={closeErrorMessage}>
